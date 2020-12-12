@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="section container content">
+      <h3>Child Details</h3>
+      <hr>
+      <div class="row d-flex justify-content-center">
+          <div class="col-5">
+            <img src={{child.image.url}}>
+          </div>
+          <div class="col-5 d-flex flex-column align-items-center justify-content-center">
+            <h3>{{child.user.first_name|upper}}</h3>
+            <div class="text-muted">
+                <span>Location:</span>
+                <span>{{child.province_birthday|capfirst}},</span>
+                <span>{{child.city_birthday|capfirst}}</span>
+            </div>
+            <h5 class="color-pink my-2">Donation Needs: {{child.donation_needs}} / Month</h5>
+            <span class="text-muted">Age: {{child.age}}years</span>
+          </div>
+      </div>
+      <p class="my-5 w-75 mx-auto">{{child.description}}</p>
+      <hr>
+      <h3 class="mt-5 color-pink">Donation History</h3>
+      {% if false %}
+        
+      {% else %}
+        <span class="ml-2">You didnt make any payment to this child.</span>
+      {% endif %}
+      
+  </div>
+{% endblock content %}

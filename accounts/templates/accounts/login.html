@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  
+  <form action="." method="POST">
+    {% csrf_token %}
+    <div class="section w-50 mx-auto">
+      {% include "messages.html" %}
+      {{form.as_p}}
+      <button type="submit" class="btn btn-success">submit</button>
+    </div>
+  </form>
+{% endblock content %}

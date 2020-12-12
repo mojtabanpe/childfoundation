@@ -1,0 +1,131 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 22/06/2016 15:02
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.flaticon-bank-credit-card:before { content: "\f100"; }
+.flaticon-bank-sign:before { content: "\f101"; }
+.flaticon-big-dollar-bill:before { content: "\f102"; }
+.flaticon-big-dollar-coin:before { content: "\f103"; }
+.flaticon-big-euro-symbol:before { content: "\f104"; }
+.flaticon-big-yen-symbol:before { content: "\f105"; }
+.flaticon-british-pound-coin:before { content: "\f106"; }
+.flaticon-british-pound-symbol:before { content: "\f107"; }
+.flaticon-british-pound-symbol-on-a-house:before { content: "\f108"; }
+.flaticon-burning-dollar-paper-bill:before { content: "\f109"; }
+.flaticon-different-currencies:before { content: "\f10a"; }
+.flaticon-dollar-bill-and-coins:before { content: "\f10b"; }
+.flaticon-dollar-bill-on-flames:before { content: "\f10c"; }
+.flaticon-dollar-bill-through-cash-machine:before { content: "\f10d"; }
+.flaticon-dollar-coin-in-a-hand:before { content: "\f10e"; }
+.flaticon-dollar-coin-on-hand-palm:before { content: "\f10f"; }
+.flaticon-dollar-coin-with-flames:before { content: "\f110"; }
+.flaticon-dollar-coins-stack:before { content: "\f111"; }
+.flaticon-dollar-in-bubble-speech:before { content: "\f112"; }
+.flaticon-dollar-money-bag-with-coin-stacks:before { content: "\f113"; }
+.flaticon-dollar-money-cash:before { content: "\f114"; }
+.flaticon-dollar-paper-bills-stack:before { content: "\f115"; }
+.flaticon-dollar-paper-bills-stack-1:before { content: "\f116"; }
+.flaticon-dollar-paper-bills-stacks:before { content: "\f117"; }
+.flaticon-dollar-percentage-symbol:before { content: "\f118"; }
+.flaticon-dollar-post:before { content: "\f119"; }
+.flaticon-dollar-sacks-filled-with-money:before { content: "\f11a"; }
+.flaticon-dollar-sign-in-speech-bubble:before { content: "\f11b"; }
+.flaticon-dollar-sign-placeholder:before { content: "\f11c"; }
+.flaticon-dollar-sign-under-the-roof:before { content: "\f11d"; }
+.flaticon-dollar-symbol:before { content: "\f11e"; }
+.flaticon-dollar-symbol-and-bank:before { content: "\f11f"; }
+.flaticon-dollar-symbol-on-a-house:before { content: "\f120"; }
+.flaticon-dollar-symbol-on-a-shopping-cart:before { content: "\f121"; }
+.flaticon-dollar-symbol-on-circle:before { content: "\f122"; }
+.flaticon-dollar-symbol-on-screen:before { content: "\f123"; }
+.flaticon-dollars-bag:before { content: "\f124"; }
+.flaticon-dollars-stacked:before { content: "\f125"; }
+.flaticon-euro-basket:before { content: "\f126"; }
+.flaticon-euro-bill:before { content: "\f127"; }
+.flaticon-euro-bill-waving:before { content: "\f128"; }
+.flaticon-euro-bill-waving-1:before { content: "\f129"; }
+.flaticon-euro-cash:before { content: "\f12a"; }
+.flaticon-euro-pie-chart:before { content: "\f12b"; }
+.flaticon-euro-round-button:before { content: "\f12c"; }
+.flaticon-euro-symbol-on-circle:before { content: "\f12d"; }
+.flaticon-euro-symbol-on-house:before { content: "\f12e"; }
+.flaticon-euros-money-bag:before { content: "\f12f"; }
+.flaticon-five-coins-stack:before { content: "\f130"; }
+.flaticon-for-sale-house:before { content: "\f131"; }
+.flaticon-hand-with-bills:before { content: "\f132"; }
+.flaticon-house-and-yen-symbol:before { content: "\f133"; }
+.flaticon-house-with-dollars-symbols:before { content: "\f134"; }
+.flaticon-increasing-stacks-of-dollar-coins:before { content: "\f135"; }
+.flaticon-japanese-yen-basket:before { content: "\f136"; }
+.flaticon-japanese-yen-placeholder:before { content: "\f137"; }
+.flaticon-man-wallet:before { content: "\f138"; }
+.flaticon-money-coins-stacks:before { content: "\f139"; }
+.flaticon-money-suitcase:before { content: "\f13a"; }
+.flaticon-one-dollar-bill:before { content: "\f13b"; }
+.flaticon-pie-chart-with-pound-piece:before { content: "\f13c"; }
+.flaticon-pie-graph-with-dollar-piece:before { content: "\f13d"; }
+.flaticon-piggy-bank-and-a-dollar-coin:before { content: "\f13e"; }
+.flaticon-piggy-bank-savings:before { content: "\f13f"; }
+.flaticon-piggy-bank-with-dollar-coin:before { content: "\f140"; }
+.flaticon-piggy-bank-with-dollar-coins:before { content: "\f141"; }
+.flaticon-placeholder-with-euro-symbol:before { content: "\f142"; }
+.flaticon-pound-basket:before { content: "\f143"; }
+.flaticon-pound-bill:before { content: "\f144"; }
+.flaticon-pound-coin:before { content: "\f145"; }
+.flaticon-pound-placeholder:before { content: "\f146"; }
+.flaticon-pounds-bag:before { content: "\f147"; }
+.flaticon-pounds-bill-symbol:before { content: "\f148"; }
+.flaticon-rising-dollar-coin-stacks:before { content: "\f149"; }
+.flaticon-saving-a-dollar-coin:before { content: "\f14a"; }
+.flaticon-shopping-basket-with-dollars-symbol:before { content: "\f14b"; }
+.flaticon-shopping-cart-in-pounds:before { content: "\f14c"; }
+.flaticon-shopping-cart-with-euro-symbol:before { content: "\f14d"; }
+.flaticon-stack-of-dollar-bills-and-coins:before { content: "\f14e"; }
+.flaticon-three-dollar-bills:before { content: "\f14f"; }
+.flaticon-three-dollar-symbols:before { content: "\f150"; }
+.flaticon-three-dollars-bills:before { content: "\f151"; }
+.flaticon-two-dollar-bills-on-piggy-bank:before { content: "\f152"; }
+.flaticon-two-dollar-coins:before { content: "\f153"; }
+.flaticon-two-hands-with-dollar-sign-at-the-middle:before { content: "\f154"; }
+.flaticon-wallet-and-three-dollar-bills:before { content: "\f155"; }
+.flaticon-wallet-with-dollars:before { content: "\f156"; }
+.flaticon-waving-british-pound-bill:before { content: "\f157"; }
+.flaticon-waving-dollar-bill:before { content: "\f158"; }
+.flaticon-waving-dollar-bills:before { content: "\f159"; }
+.flaticon-waving-pound-bill:before { content: "\f15a"; }
+.flaticon-yen-bill:before { content: "\f15b"; }
+.flaticon-yen-bill-1:before { content: "\f15c"; }
+.flaticon-yen-bill-waving:before { content: "\f15d"; }
+.flaticon-yen-coin:before { content: "\f15e"; }
+.flaticon-yen-coin-1:before { content: "\f15f"; }
+.flaticon-yen-currency:before { content: "\f160"; }
+.flaticon-yen-pie-chart:before { content: "\f161"; }
+.flaticon-yen-shopping-cart:before { content: "\f162"; }
+.flaticon-yens-money-bag:before { content: "\f163"; }

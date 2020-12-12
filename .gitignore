@@ -1,0 +1,18 @@
+#mac staff
+.DS_Store
+.idea/
+
+#virtual env
+cfenv/
+
+
+#migration
+**/migrations/
+
+
+#other
+TODO.txt
+files/
+**/__pycache__
+staticfiles/
+.env

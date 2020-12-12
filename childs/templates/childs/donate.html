@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include "cover.html" %}
+    <div class="title-main">
+        <span class="text-center">You are about to make an impact on a child’s life by making donation to Child Foundation UK.</>
+    </div>
+    <div class="container">
+        <p>Whether you decide to make a one-off donation to a specific child or to Child Foundation as a whole, we promise that the donation
+             you make today will be used to keep a child at school or to keep their families safe and warm by addressing their urgent needs. 
+              We recommend you to <a href="#">Register / Log in</a> before making donation which enables you manage your donations and helps us keep track of
+               our donors and available funds. We can also let you know how your donation could make a 
+            change to a child’s life. However, it is also possible to donate anonymously without registering/logging in, if you wish so.</p>
+        <p>Regardless, your donation will change the lives of extremely vulnerable children across the country. It satisfies their urgent needs
+             and helps them gain access to education and/or enables them remain in school.</p>
+    </div>
+    <div class="title-main">
+        <span class="text-center">Payment Methods:</span>
+    </div>
+    <div class="container mb-3">
+        <h3 class="mb-1">1. Visa/Master Card:</h3>
+        <a href="#" class="inc-height">Pay with Visa/Master Card</a>
+        <h3 class="mt-1">2. Bank Payment:</h3>
+        <p>If you would like to make a one-off donation, here is our bank account number. Please kindly mention the Donation Category specified above in the Reference field of your payment.</p>
+        <h5>The Royal Bank of Scotland</h5>
+        <p>Hiro Charity</p>
+        <p>467 Wilmslow Rd.</p>
+        <p>Withington</p>
+        <p>Manchester M20 4AN</p>
+        <p>Account Number : 10845431</p>
+        <p>Sort Code 16-34-27</p>
+        <hr>
+        <p>If you wish to make regular payments to the Child Foundation UK, you can use Standing order/Banking order. 
+            This is an instruction you can give to your bank to pay a set amount at regular intervals to the Child foundation.
+             Please download this PDF form, fill the form and submit it to your bank. The bank will automatically transfer the 
+             money as you instructed on the mentioned date.</p>
+        <button class="standing-order">
+            Standing Order/Banking Order
+        </button>
+        <h3 class="mt-1">3. Paypal:</h3>
+        <p>If you are living outside of the UK and you would like to donate to Child Foundation UK, you can use PayPal to make payments.
+             However, please note that Paypal charges 2.9% plus $.30 on each payment.</p>
+        <p>Please specify your donation amount and the category that you would like to donate to.</p>
+        <button class="btn btn-pink"><a href="https://www.paypal.com/donate/?business=finance@childfoundation.co.uk&cmd=_donations&tax=0&no_shipping=0&no_note=1&item_name=Donation&item_number=finance_api1.childfoundation.co.uk&currency_code=GBP" class="text-white">Paypal</a></button>
+        <p class="my-4">On behalf of the children that we serve, we are so grateful for your support! Child Foundation could not exist without the kind
+             hearts of our donors and sponsors. Thank you!</p>
+    </div>
+{% endblock content %}

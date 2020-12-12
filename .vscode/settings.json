@@ -1,0 +1,4 @@
+{
+    "python.linting.enabled": true,
+    "python.pythonPath": "cfenv/bin/python"
+}

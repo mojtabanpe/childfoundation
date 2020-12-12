@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "cover.html" %}
+<div class="my-5 px-5">
+    <p>We consider and recognize the children’s need to education. To achieve this goal progressively and based on the equal opportunity, we need your help to give hope to the talented children. Sponsor a child HERE</p>
+    <p>The monthly sponsorship gift is specific for each child and has been calculated based on family needs and income among others. Generally, children need between 15-60 Pound per month. For the exact amount please CONTACT US before filling out the form. You may of course choose to pay the entire or part of the monthly need.</p>    
+</div>
+
+<div class="childs-list">
+    {% for child in childs %}
+    <div class="child">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">          
+                <h4>{{child.user.first_name|upper}}</h4>
+                <div>
+                    <span class="qoute">{{child.province_birthday|capfirst}},</span>
+                    <span class="qoute">{{child.city_birthday|capfirst}}</span>
+                </div>
+            </div>
+            {% load static %}<img src="{{child.image.url}}" class="card-img" alt="">
+            <div class="card-body">
+                <div class="d-flex justify-content-around">
+                    <h3 class="mr-1">Donation Needs: {{child.donation_needs}} / Month</h3>
+                    <div>
+                        <span>{{child.age}}years</span>
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                </div>
+                <p class="card-text">
+                    {{child.description| truncatechars_html:200}}
+                </p>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-pink"><a href="{% url 'childs:child_details' child.id %}">SOPNSOR NOW</a></button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}    
+</div>
+
+{% endblock content %}

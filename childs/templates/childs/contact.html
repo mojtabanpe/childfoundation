@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include "cover.html" %}
+    <div class="row">
+        <div class="col-6 py-4">
+            <form action={% url 'childs:contact' %} method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-success">submit</button>
+            </form>       
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            {% for office in offices %}
+                <div class="section mx-1">
+                    <h3 class="my-3">{{office.country}}</h3>
+                    <div class="pl-3">
+                        <p>{{office.name}}</p>
+                        <p>{{office.city}}</p>
+                        <p>{{office.phone}}</p>
+                        <p>{{office.email}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
