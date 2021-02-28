@@ -1,3 +1,7 @@
+from sponser.models import Sponser
 from django.contrib import admin
 
-# Register your models here.
+@admin.register(Sponser)
+class SponserAdmin(admin.ModelAdmin):
+    pass
+

@@ -1,6 +1,6 @@
 {%extends 'base.html' %}
 {% block content %}
-<div id="myCarousel" class="carousel slide carousel-fade" data-interval="false">
+<div id="myCarousel" class="carousel slide carousel-fade d-none d-md-block" data-interval="false">
     <div class="carousel-inner">
       <div class="carousel-item active">
     {% load static %}<img src="{% static "images/first.jpg" %}" class="d-block w-100" alt="...">
@@ -30,8 +30,8 @@
     </a>
   </div>
 
-<section class="help section-padding">
-    <div class="">
+<section class="help section-padding px-md-5">
+    <div>
         <div class="row section-title">
             <div class="col col-xs-12">
                 <span>Join our mission</span>
@@ -40,40 +40,44 @@
         </div> <!-- end section-title -->
 
         <div class="row">
-            <div class="col-12 col-md-6 px-5">
-                <div class="help-item">
-                    <span class="icon"><i class="fas fa-hand-holding-usd"></i></span>
+            <div class="col-12 col-lg-6 px-md-5">
+                <div class="help-item">   
                     <div class="details">
-                        <h3>Donation</h3>
-                        <p>comes in the form of one-time transactions. You can choose to donate to a specific child or to the Child Foundation. If the latter, we will ensure to use the fund to help by study facilities for children or spent on emergency needs such as house repair, rental deposit medication etc.to children with critical situation.<a href="http://childfoundation.co.uk/donate/">Read More Here </a></p>
+                        <h3><span class="icon"><i class="fas fa-hand-holding-usd"></i></span>Donation</h3>
+                        <p>comes in the form of one-time transactions. You can choose to donate to a specific child or to the Child Foundation. If the latter,
+                             we will ensure to use the fund to help by study facilities for children or spent on emergency needs such as house repair,
+                              rental deposit medication etc.to children with critical situation.<a href="{% url 'childs:donate' %}">Read More Here </a></p>
+                    </div>
+                </div>
+                <div class="help-item">                   
+                    <div class="details">
+                        <h3><span class="icon"><i class="fas fa-grin-hearts"></i></span>Become volunteer</h3>
+                        <p>If you are passionate about our work and would like to dedicate some of your time to supporting Child foundation UK, why not consider
+                             becoming a Volunteer?<a href="{% url 'childs:volunteers' %}">Read More Here </a></p>
                     </div>
                 </div>
                 <div class="help-item">
-                    <span class="icon"><i class="fas fa-grin-hearts"></i></span>
                     <div class="details">
-                        <h3>Become volunteer</h3>
-                        <p>If you are passionate about our work and would like to dedicate some of your time to supporting Child foundation UK, why not consider becoming a Volunteer?<a href="http://childfoundation.co.uk/volunteers/">Read More Here </a></p>
-                    </div>
-                </div>
-                <div class="help-item">
-                    <span class="icon"><i class="fas fa-money-check-alt"></i></span>
-                    <div class="details">
-                        <h3>Sponsorship</h3>
-                        <p><strong>Full Sponsorship</strong> means contributing an on-going monthly amount to one or more specific children. Generally the minimum amount per month to be considered a sponsor is £30 per month. However, some children need more support for their basic needs due to poverty, sickness etc.<a href="http://childfoundation.co.uk/sponsor-a-child/">Read More Here </a><br><br>
-                        <strong>Part Sponsorship:</strong> Some people may be willing to help, but cannot pay £30 per month, they can choose to partly sponsor a child by paying £15 per month. In mentioned case, one child will have more than one sponsor.<a href="http://childfoundation.co.uk/sponsor-a-child/">Read More Here </a>
-                        
-                        
+                        <h3><span class="icon"><i class="fas fa-money-check-alt"></i></span>Sponsorship</h3>
+                            <p><strong>Full Sponsorship</strong> means contributing an on-going monthly amount to one or more specific children. 
+                                Generally the minimum amount per month to be considered a sponsor is £30 per month. However, some children need more
+                                 support for their basic needs due to poverty, sickness etc.<a href="{% url 'childs:sponser_a_child' %}">Read More Here </a><br><br>
+                            <strong>Part Sponsorship:</strong> Some people may be willing to help, but cannot pay £30 per month, they can choose to partly sponsor a 
+                            child by paying £15 per month. In mentioned case, one child will have more than one sponsor.<a href="{% url 'childs:sponser_a_child' %}">Read More Here </a>                     
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 col-md-6 px-5">
+            <div class="col-12 col-lg-6 px-md-5 pt-5">
                 <div class="box">
                     <div>
                        <h2 style="margin-top: 0px;"><span>About ChildFoundation</span></h2>
                        <strong>The Face of the Future... One Child at a Time</strong>
-                <p>Child Foundation is an international charity organization that helps children living in poverty remain in school. The children sponsored through our programs are high achievers, and many of the children we assist are orphans or children living in emergency situations. By enhancing the quality of life for children in need, as well as their respective families, we actively help them gain access to education. Sponsor a high achieving child today!&nbsp;<a href="http://childfoundation.co.uk/about/">Read More Here &gt;</a></p>
+                <p>Child Foundation is an international charity organization that helps children living in poverty remain in school. The children sponsored 
+                    through our programs are high achievers, and many of the children we assist are orphans or children living in emergency situations. 
+                    By enhancing the quality of life for children in need, as well as their respective families, we actively help them gain access to education.
+                     Sponsor a high achieving child today!&nbsp;<a href="{% url 'childs:about' %}">Read More Here</a></p>
                     </div>
                 </div>
                 <div class="box">
@@ -87,34 +91,41 @@
     </div>
 </section>
 
-<section class="blog">
-    <div class="posts mr-5">
+<section class="blog row">
+   <div class="col-12 col-lg-6">
+    <div class="posts mb-5">
         <h2 class="font-weight-bold">Latest News</h2>
         {% for post in posts %}
             <div class="d-flex post">
-                 <img src="{{post.image.url}}" class="img-enough">
+                <img src="{{post.image.url}}" class="img-enough d-none d-md-flex">
                 <div class="d-flex flex-column post-detail">
+                    <img src="{{post.image.url}}" class="blog-image-sm d-md-none d-flex">
                     <h3>{{post.title}}</h3>
                     <span class="date">{{post.publish_date}}</span>
                     <p>{{post.body| safe|truncatechars_html:200}}</p>
-                    <button class="btn btn-pink w-75 mx-auto">Reed More</button>
+                    <button class="btn btn-pink w-75 mx-auto"><a href="{{ post.get_absolute_url }}"">Read More</a></button>
+                    <!-- href="{{ post.get_absolute_url }} -->
                 </div>
             </div>
         {% endfor %}
     </div>
-    <div class="posts ml-5">
+   </div>
+   <div class="col-12 col-lg-6">
+    <div class="posts mb-5">
         <h2>Latest Events</h2>
         {% for post in posts %}
         <div class="d-flex post">
-            <img src="{{post.image.url}}" class="img-enough">
+            <img src="{{post.image.url}}" class="img-enough d-none d-md-flex">
             <div class="d-flex flex-column post-detail">
+                <img src="{{post.image.url}}" class="blog-image-sm d-md-none d-flex">
                 <h3>{{post.title}}</h3>
                 <span class="date">{{post.publish_date}}</span>
                 <p>{{post.body| safe|truncatechars_html:200}}</p>
-                <button class="btn btn-pink w-75 mx-auto">Reed More</button>
+                <button class="btn btn-pink w-75 mx-auto"><a href="{{ post.get_absolute_url }}">Read More</a></button>
             </div>
         </div>
     {% endfor %}
     </div>
+   </div>
 </section>
 {%endblock%}

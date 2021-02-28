@@ -1,4 +1,4 @@
-<div class="footer row">
+<div class="footer py-5 px-1 px-md-5 row">
     <div class="col-12 col-md-6 col-lg-3 footer-section first">
         {% load static %}<img src="{% static "images/logo.png" %}">
         <p>Child Foundation is an international charity organization that helps children living in poverty remain in school.</p>
@@ -10,19 +10,19 @@
             <i class="fab fa-instagram"></i>
           </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-3 footer-section pl-5">
+    <div class="col-12 col-md-6 col-lg-3 footer-section pl-lg-5">
         <h3>Company</h3>
-        <a href="#">Abouts</a>
-        <a href="#">News & Events</a>
-        <a href="#">Contact</a>
-        <a href="#">Privacy Statement</a>
-        <a href="#">Terms Of Use</a>
+        <a href="{% url 'childs:about' %}">Abouts</a>
+        <a href="{% url 'childs:newsandevents' %}">News & Events</a>
+        <a href="{% url 'childs:contact' %}">Contact</a>
+        <a href="{% url 'childs:privacy_statement' %}">Privacy Statement</a>
+        <a href="{% url 'childs:terms_of_use' %}">Terms Of Use</a>
     </div>
     <div class="col-12 col-md-6 col-lg-3 footer-section">
         <h3>GET INVOLVED</h3>
-        <a href="#">Sponsor A Child</a>
-        <a href="#">Volunteers</a>
-        <a href="#">Donate</a>
+        <a href="{% url 'childs:sponser_a_child' %}">Sponsor A Child</a>
+        <a href="{% url 'childs:volunteers' %}">Volunteers</a>
+        <a href="{% url 'childs:donate' %}">Donate</a>
     </div>
     <div class="col-12 col-md-6 col-lg-3 footer-section">
         <h3>CONTACT</h3>

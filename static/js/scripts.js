@@ -14,3 +14,9 @@ $(window).scroll(function() {
         $(".content").removeClass("content-go-bot");
     }
 })
+$('#open-sidebar').click(function() {
+    $("#sidebar").addClass("show");
+})
+$('#close-sidebar').click(function() {
+    $("#sidebar").removeClass("show");
+})

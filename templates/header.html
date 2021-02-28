@@ -2,7 +2,7 @@
 <nav class="header">
   <div class="d-flex justify-content-between top-header">
     {% load static %}<img class="logo" src="{% static "images/logo.png" %}">
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-none d-md-flex justify-content-around align-items-center">
       <i class="fas fa-envelope"></i>
       <div class="d-flex flex-column">
         <h3 class="bold">Email</h3>
@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-none d-lg-flex justify-content-around align-items-center">
       <i class="fas fa-phone-square-alt"></i>
       <div class="d-flex flex-column">
         <h3 class="bold">Phone</h3>
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-none d-md-flex justify-content-around align-items-center">
       <i class="fas fa-user-lock"></i>
       <div class="d-flex flex-column">
         <h3 class="bold">Member Area</h3>
@@ -39,9 +39,12 @@
         </div>
       </div>
     </div>
-      
+    
+    <div class="d-md-none d-block">
+      <i class="fas fa-bars menu-bars" id="open-sidebar"></i>
+    </div>
   </div>
-  <div class="d-flex justify-content-around bottom-header mx-auto">
+  <div class="justify-content-around bottom-header mx-auto d-none d-md-flex">
     <div class="menu">
       <a href="{% url 'childs:landing' %}">Home</a>
       <a href="{% url 'childs:sponser_a_child' %}">Sponser A Child</a>
@@ -51,11 +54,33 @@
       <a href="{% url 'childs:newsandevents' %}">News & Events</a>
       <a href="{% url 'childs:contact' %}">Contacs</a>
     </div>
-    <div class="d-flex social">
+    <div class="social d-flex">
       <i class="fab fa-facebook-f"></i>
       <i class="fab fa-twitter"></i>
       <i class="fab fa-linkedin-in"></i>
     </div>
   </div>
     
-  </nav>
+</nav>
+<div id="sidebar">
+  <div class="routes">
+    <a href="{% url 'childs:landing' %}">Home</a>
+    <a href="{% url 'childs:sponser_a_child' %}">Sponser A Child</a>
+    <a href="{% url 'childs:donate' %}">Donate</a>
+    <a href="{% url 'childs:volunteers' %}">Volunteers</a>
+    <a href="{% url 'childs:about' %}">About</a>
+    <a href="{% url 'childs:newsandevents' %}">News & Events</a>
+    <a href="{% url 'childs:contact' %}">Contacs</a>
+  </div>
+  <hr class="mt-3">
+  <div class="d-flex justify-content-center mb-3">
+    {% if user.is_authenticated %}
+    <a href="{% url 'accounts:user_logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'accounts:user_login' %}" class="mr-2">Login</a>
+    <a href="{% url 'accounts:user_register' %}">Register</a>
+
+  {% endif %}
+  </div>
+  <i class="far fa-times-circle" id="close-sidebar"></i>
+</div>

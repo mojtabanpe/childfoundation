@@ -199,6 +199,7 @@ a {
     padding-right: 2rem;
     padding-left: 2rem;
     align-items: center;
+    transition: height 1s ease;
 }
 
 .bottom-header {
@@ -218,6 +219,7 @@ a {
 }
 .menu a {
     transition: padding 2s ease;
+    box-shadow: 0px 2px 10px -7px rgb(228 213 220);
 }
 .bottom-header .social {
     flex-grow: 1;
@@ -240,17 +242,74 @@ a {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+.menu-bars {
+    font-size: 30px !important;
+    cursor: pointer;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: -2rem;
+    width: 0;
+    height: auto;
+    background-color: white;
+    z-index: 1000;
+    transition: width 1s ease;
+}
+#sidebar.show {
+    width: 300px;
+    right: 0;
+}
+
+.routes a {
+    padding: 1rem 2rem;
+    display: block;
+    color: black;
+    text-decoration: none;
+    width: 300px;
+    overflow: hidden;
+}
+
+.routes a:hover {
+    background-color: #B20F50;
+    color: white;
+}
+#close-sidebar {
+    position: absolute;
+    top: 1rem;
+    left: -.7rem;
+    background-color: #B20F50;
+    color: white;
+    font-size: 24px;
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+#sidebar .d-flex a:hover {
+    color:gray;
+    text-decoration: none;
+    
+}
+#sidebar .d-flex {
+    overflow: hidden;
+}
+@media (max-width: 768px) {
+.top-header {
+    height: 5rem;
+}
+}
 
 /* end section header */
 /* ********************************************************************************************* */
 /* section footer */
 .footer {
     background-color: #16191E;
-    padding: 2rem 3rem;
 }
 .footer-section {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
 }
 .footer-section .social {
     width: 90%;
@@ -310,7 +369,8 @@ a {
     margin-bottom: 60px;
 }
 .section-padding {
-    padding: 5rem 5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .help-item .icon {
@@ -323,9 +383,7 @@ a {
 
 /* section blog */
 .blog {
-    display: flex;
-    justify-content: space-around;
-    padding: 2rem;
+    padding:2rem 1rem;
     background-color: white;
 }
 
@@ -339,13 +397,17 @@ a {
 .post {
     margin-top: 2rem;
     box-shadow: 0 1px 3px rgba(0,0,0,.4);
-    padding:1rem 1rem ;
+    padding:.5rem .5rem ;
 }
 .img-enough{
     max-width: 40%;
     height: 200px;
     margin-right: 1rem;
     align-self: center;
+}
+
+.blog-image-sm {
+    height: 200px;
 }
 
 .date{
@@ -372,6 +434,11 @@ a {
 }
 .card-body h3 {
     font-size: 1.4rem !important;
+}
+
+.child-image {
+    width: 100%;
+    height: 300px;
 }
 /* end section childs */
 /* ********************************************************************************************* */

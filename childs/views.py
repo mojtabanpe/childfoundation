@@ -65,6 +65,12 @@ def newsandevents(request):
 def about(request):
     return render(request, './childs/about.html')
 
+def privacy_statement(request):
+    return render(request, './childs/privacy_statement.html')
+
+def terms_of_use(request):
+    return render(request, './childs/terms_of_use.html')
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)

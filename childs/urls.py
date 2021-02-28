@@ -16,6 +16,8 @@ urlpatterns = [
     path('newsandevents', views.newsandevents, name='newsandevents'),
     path('about', views.about, name='about'),
     path('contact', views.contact, name='contact'),
+    path('privacy_statement', views.privacy_statement, name='privacy_statement'),
+    path('terms_of_use', views.terms_of_use, name='terms_of_use'),
 ]
 
 if settings.DEBUG:

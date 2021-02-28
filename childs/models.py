@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
 from django.urls import reverse
-from ckeditor_uploader.fields import RichTextUploadingField
+# from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
 
 
@@ -19,8 +19,9 @@ class UserProfile(models.Model):
         ("healthy","Healthy"),
         ("sick","Sick")
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     sponser = models.ForeignKey(Sponser, on_delete=models.CASCADE, null=True, blank=True)
+    first_name = models.CharField(max_length=30, default='')
+    last_name = models.CharField(max_length=30, default='')
     membership_number = models.IntegerField(null=False, blank=False, unique=True)
     file_number = models.IntegerField(null=False, blank=False, unique=True)
     is_orphan = models.BooleanField()
@@ -40,7 +41,7 @@ class UserProfile(models.Model):
     donation_needs = models.CharField(max_length=20,blank=True, null=True)
 
     def  __str__(self):
-        return self.user.first_name
+        return self.first_name
     
     def get_absolute_url(self):
         return reverse("childs:child_details", kwargs={"id": self.pk})
@@ -124,7 +125,35 @@ class News(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField( max_length=50, unique=True, allow_unicode=True)
     writer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    body = RichTextUploadingField()
+    body = models.TextField()
+    image = models.ImageField(upload_to='files/images')
+    publish_date = models.DateTimeField(default= timezone.now)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_update = models.DateTimeField(auto_now=True)
+    status = models.CharField(default="Draft",max_length=7, choices=STATUS)
+    objects  = models.Manager()
+    published_posts = PublishedPostsManager()
+
+    def get_absolute_url(self):
+        return reverse("childs:news_one", kwargs={"id": self.pk, "slug": self.slug})
+    
+
+    def  __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse("childs:news_one", kwargs={"id": self.pk, "slug": self.slug})
+
+class Events(models.Model):
+    STATUS = (
+        ("draft","Draft"),
+        ("publish","Publish")
+    )
+    # objects = models.ObjectManager
+    title = models.CharField(max_length=100)
+    slug = models.SlugField( max_length=50, unique=True, allow_unicode=True)
+    writer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    body = models.TextField()
     image = models.ImageField(upload_to='files/images')
     publish_date = models.DateTimeField(default= timezone.now)
     created_date = models.DateTimeField(auto_now_add=True)
