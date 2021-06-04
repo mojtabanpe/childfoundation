@@ -18,7 +18,7 @@
                 <hr>
                 <h5><a href="{% url 'childs:sponser_a_child' %}">Add Child</a></h5>
                 <hr>
-                <h5>View Sponsered Childs</h5>
+                <h5><a href="{% url 'sponser:sponsered_childs' %}">View Sponsered Childs</a></h5>
                 <hr>
             </div>
         </div>
@@ -37,33 +37,36 @@
                     <label class="text-muted">Company</label>
                     <strong class="pl-4">{{sponser.company}}</strong>
                 </div>
-                <div class="sponser_detail">
+                <!-- <div class="sponser_detail">
                     <label class="text-muted">Designation</label>
                     <strong class="pl-4">{{sponser.designation}}</strong>
-                </div>
-                <div class="sponser_detail">
-                    <label class="text-muted">City</label>
-                    <strong class="pl-4">{{sponser.city}}</strong>
-                </div>
-                <div class="sponser_detail">
+                </div> -->
+                <!-- <div class="sponser_detail">
                     <label class="text-muted">Description</label>
                     <strong class="pl-4">{{sponser.description}}</strong>
-                </div>
+                </div> -->
                 <div class="sponser_detail">
                     <label class="text-muted">Gender</label>
                     <strong class="pl-4">{{sponser.gender}}</strong>
                 </div>
                 <div class="sponser_detail">
                     <label class="text-muted">Contribution</label>
-                    <strong class="pl-4">{{sponser.contribution}}</strong>
+                    <strong class="pl-4">{{sponser.contribution}} Child</strong>
                 </div>
                 <div class="sponser_detail">
-                    <label class="text-muted">Total Paid</label>
-                    <strong class="pl-4">{{sponser.total_paid}}</strong>
+                    <label class="text-muted">Total Paid</label>                  
+                    {% if sponser.total_paid != '' %}
+                    <strong class="pl-4">{{sponser.total_paid|floatformat}}£</strong>                
+                    {% endif %}                        
+
                 </div>
                 <div class="sponser_detail">
-                    <label class="text-muted">Total Saving</label>
-                    <strong class="pl-4">{{sponser.current_saving}}</strong>
+                    <label class="text-muted">Total Saving</label>   
+                    {% if sponser.current_saving != '' %}
+                    <strong class="pl-4">{{sponser.current_saving}}£</strong>
+                    {% endif %}
+                        
+
                 </div>
                 <div class="sponser_detail">
                     <label class="text-muted">Member Since</label>

@@ -1,21 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% include "cover.html" %}
-<div class="my-5 px-5">
-    <p>We consider and recognize the children’s need to education. To achieve this goal progressively and based on the equal opportunity,
-         we need your help to give hope to the talented children. Sponsor a child <a href="{% url 'accounts:user_register' %}">HERE</a></p>
-    <p>The monthly sponsorship gift is specific for each child and has been calculated based on family needs and income among others. Generally,
-         children need between 15-60 Pound per month. For the exact amount please <a href="{% url 'childs:contact' %}">CONTACT US</a> before filling out the form. You may of course choose 
-         to pay the entire or part of the monthly need.</p>    
-</div>
-
+  
 <div class="childs-list">
+    
+    {% if childs.count == 0 %}
+    <div class="alert alert-info my-5">You dont Sponser any child!</div>
+    {% endif %}
+        
     {% for child in childs %}
     <div class="child">
         <div class="card">
             <div class="card-header d-flex justify-content-between">          
-                <!-- <h4>{{child.first_name|upper}}</h4> -->
+                <h4>{{child.first_name|upper}}</h4>
                 <div>
                     <span class="qoute">{{child.province_birthday|capfirst}},</span>
                     <span class="qoute">{{child.city_birthday|capfirst}}</span>
@@ -34,12 +31,14 @@
                     {{child.description| truncatechars_html:200}}
                 </p>
             </div>
-            <div class="card-footer">
-                <button class="btn btn-pink"><a href="{% url 'childs:child_details' child.id %}">SEE CHILD DETAILS</a></button>
+            <div class="card-footer d-flex justify-content-around">
+                <button class="btn btn-pink btn-block"><a href="{% url 'childs:child_details' child.id %}">SEE CHILD DETAILS</a></button>
+                <!-- <button class="btn btn-success"><a href="{% url 'childs:donate_child' child.id %}">Donate</a></button> -->
             </div>
         </div>
     </div>
     {% endfor %}    
 </div>
-
 {% endblock content %}
+
+

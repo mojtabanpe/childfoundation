@@ -97,9 +97,9 @@
         <h2 class="font-weight-bold">Latest News</h2>
         {% for post in posts %}
             <div class="d-flex post">
-                <img src="{{post.image.url}}" class="img-enough d-none d-md-flex">
+                <img src="{{post.image}}" class="img-enough d-none d-md-flex">
                 <div class="d-flex flex-column post-detail">
-                    <img src="{{post.image.url}}" class="blog-image-sm d-md-none d-flex">
+                    <img src="{{post.image}}" class="blog-image-sm d-md-none d-flex">
                     <h3>{{post.title}}</h3>
                     <span class="date">{{post.publish_date}}</span>
                     <p>{{post.body| safe|truncatechars_html:200}}</p>
@@ -115,9 +115,9 @@
         <h2>Latest Events</h2>
         {% for post in posts %}
         <div class="d-flex post">
-            <img src="{{post.image.url}}" class="img-enough d-none d-md-flex">
+            <img src="{{post.image}}" class="img-enough d-none d-md-flex">
             <div class="d-flex flex-column post-detail">
-                <img src="{{post.image.url}}" class="blog-image-sm d-md-none d-flex">
+                <img src="{{post.image}}" class="blog-image-sm d-md-none d-flex">
                 <h3>{{post.title}}</h3>
                 <span class="date">{{post.publish_date}}</span>
                 <p>{{post.body| safe|truncatechars_html:200}}</p>

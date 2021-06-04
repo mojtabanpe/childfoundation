@@ -1,3 +1,4 @@
+from childs.models import UserProfile
 from typing import Tuple
 from sponser.forms import EditProfileForm
 from sponser.models import Sponser
@@ -10,6 +11,16 @@ def sponser_profile(request):
         'sponser': sponser
     }
     return render(request, './sponser/sponser_profile.html',context=context)
+
+def sponsered_childs(request):
+    if request.user.is_authenticated:
+        # childs = UserProfile.objects.all()
+        sponser = Sponser.objects.get(user_id=request.user.id)
+        childs = UserProfile.objects.filter(sponser_id=sponser.id)
+        context = {
+            'childs': childs
+        }
+        return render(request, './sponser/sponsered_childs.html', context=context)
 
 def edit_profile(request):
     current_user = request.user
@@ -36,8 +47,6 @@ def edit_profile(request):
             'first_name': sponser.user.first_name,
             'last_name': sponser.user.last_name,
             'email': sponser.user.email,
-            'designation': sponser.designation,
-            'description': sponser.description,
             'company': sponser.company,
             'gender': sponser.gender,
             'contribution': sponser.contribution

@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
   <div class="section container content">
-      <h3>Child Details</h3>
+      <div class="d-flex justify-content-between">
+        <h3>Child Details</h3>      
+        {% if child_has_sponser %}
+          <button class="btn btn-success"><a href="{% url 'childs:donate_child' child.id %}">Donate Now</a></button>
+        {% endif %}
+          
+      </div>
       <hr>
       <div class="row d-flex justify-content-center">
           <div class="col-5">
-            <img src={{child.image.url}}>
+            <img src="/{{child.image}}" class="child-image" alt="">
           </div>
           <div class="col-5 d-flex flex-column align-items-center justify-content-center">
-            <h3>{{child.user.first_name|upper}}</h3>
+            <h3>{{child.first_name|upper}}</h3>
             <div class="text-muted">
                 <span>Location:</span>
                 <span>{{child.province_birthday|capfirst}},</span>
@@ -20,11 +26,31 @@
       </div>
       <p class="my-5 w-75 mx-auto">{{child.description}}</p>
       <hr>
-      <h3 class="mt-5 color-pink">Donation History</h3>
-      {% if false %}
-        
+      
+      {% if child_has_sponser %}
+        <h3 class="mt-5 color-pink">Sponsorship History</h3>
+        {% if donations.count != 0 %}
+          <div class="section">
+            <table class="table-sm table-striped">
+              <thead>
+                <th>Amount</th>
+                <th>Date</th>
+              </thead>
+              <tbody>
+                {% for donation in donations%}
+                <tr>
+                  <td>{{donation.amount}}£</td>
+                  <td>{{donation.date|date:"SHORT_DATE_FORMAT"}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <span class="ml-2">You didnt make any payment to this child.</span>
+        {% endif %}
       {% else %}
-        <span class="ml-2">You didnt make any payment to this child.</span>
+        <button class="btn btn-pink d-block mt-4"><a href="{% url 'childs:become_sponser' child.id %}">BECOME SOPNSOR</a></button>
       {% endif %}
       
   </div>

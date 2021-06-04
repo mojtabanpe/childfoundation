@@ -7,6 +7,8 @@ app_name = 'sponser'
 urlpatterns = [
     path('sponser_profile/', views.sponser_profile, name='sponser_profile'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('sponsered_childs', views.sponsered_childs, name='sponsered_childs'),
+
 ]
 
 if settings.DEBUG:

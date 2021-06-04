@@ -8,7 +8,7 @@
             {% for post in posts %}
               <div class="card">
                   <h1 class="card-header color-pink">{{post.title}}</h1>
-                  <img class="card-img" src="{{post.image.url}}"></img>
+                  <img class="card-img" src="{{post.image}}"></img>
                   <div class="card-body">
                     <h5 class="card-subtitle">
                         {{post.writer}}/ {{post.publish_date| date:"d M Y"}}

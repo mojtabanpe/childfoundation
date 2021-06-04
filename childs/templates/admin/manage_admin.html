@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+    <!-- <button class="btn btn-outline-primary contains-a"><a href="{% url 'helpers:send_email' %}">Send Email</a></button> -->
+    <div class="d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" onclick="showContent('show-donations')">Show Donations</button>
+        <button type="button" class="btn btn-success" onclick="showContent('compute-Total')">Compute Total Save</button>
+        <button type="button" class="btn btn-warning" onclick="showContent('change-content')">Change Content</button>
+    </div>
+    <div id="ghafeloo"></div>
+        
+{% endblock content %}
+
+{% block extrajs %}
+<script src="/static/js/admin-scripts.js"></script>
+{% endblock extrajs %}
+
+

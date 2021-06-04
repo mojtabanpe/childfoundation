@@ -1,7 +1,8 @@
+from sponser.models import Sponser
 from childs.forms import ContactForm
 from childs.seializers import NewsSerializer
 from rest_framework import generics
-from childs.models import Contact, News, Office, UserProfile
+from childs.models import Contact, Donation, News, Office, UserProfile
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 
@@ -13,6 +14,7 @@ def landing(request):
         'posts': posts
     }
     return render(request, './childs/landing.html', context=context)
+
 def all_news(request):
     posts = News.object.all()
     context = {
@@ -32,7 +34,8 @@ def news_details(request, id,slug):
     return render(request, "childs/post_details.html", {'post': post})
 
 def sponser(request):
-    childs = UserProfile.objects.all()
+    childs = UserProfile.objects.filter(sponser_id=None)
+    # print(childs)
     context = {
         'childs': childs
     }
@@ -41,13 +44,64 @@ def sponser(request):
 def child_details(request, id):
     if request.user.is_authenticated:
         child = get_object_or_404(UserProfile,id=id)
+        sponser = get_object_or_404(Sponser,user_id=request.user.id)
+        child_has_sponser = False
+        sponser_right = False
+        if child.sponser_id:
+            child_has_sponser = True
+        if child.sponser_id == sponser.id:
+            sponser_right = True
+        if child_has_sponser and (not sponser_right):
+            return redirect('sponser:sponsered_childs')
+        donations = Donation.objects.filter(sponser_id=sponser.id, child_id=child.id)
         context = {
-            'child': child
+            'child': child,
+            'donations': donations,
+            'child_has_sponser': child_has_sponser
         }
         return render(request, './childs/child_details.html', context=context)
     else:
         return redirect('accounts:user_login')
 
+def become_sponser(request, child_id):
+    if request.user.is_authenticated:
+        child = get_object_or_404(UserProfile,id=child_id)
+        sponser = get_object_or_404(Sponser,user_id=request.user.id)
+        child.sponser_id = sponser.id
+        sponser.contribution += 1
+        sponser.save()
+        child.save()
+        return redirect('sponser:sponsered_childs')
+    else:
+        return redirect('accounts:user_login')
+
+def donate_child(request, child_id):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            donation_amount = request.POST['amount']
+            sponser = Sponser.objects.get(user_id=request.user.id)
+            dontation = {
+                'child_id': child_id,
+                'sponser_id': sponser.id,
+                'amount': donation_amount
+            }
+            dontation = Donation.objects.create(**dontation)
+            try:
+                sponser.total_paid = str(float(sponser.total_paid) + float(donation_amount))
+                sponser.save()
+            except:
+                sponser.total_paid = str(donation_amount);
+                sponser.save()
+            return redirect('sponser:sponsered_childs')
+    elif request.method == 'GET':
+        if request.user.is_authenticated:
+            child = get_object_or_404(UserProfile,id=child_id)
+            context = {
+                'child': child
+            }        
+            return render(request, './childs/donate_child.html', context=context)
+        else:
+            return redirect('accounts:user_login')
 
 def donate(request):
     return render(request, './childs/donate.html')
@@ -91,3 +145,9 @@ def contact(request):
         'form': form
     }
     return render(request, './childs/contact.html', context=context)
+
+def manage_admin(request):
+    variables = {
+        'variable': 'show-donations'
+    }
+    return render(request, './admin/manage_admin.html', context=variables)

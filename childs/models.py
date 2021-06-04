@@ -46,6 +46,8 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse("childs:child_details", kwargs={"id": self.pk})
     
+    def get_donation_needs(self):
+        return self.donation_needs + '£' + ' / Month'
 
 
 class House(models.Model):
@@ -56,11 +58,11 @@ class House(models.Model):
     )
     province = models.CharField(max_length=20)
     city = models.CharField(max_length=20)
-    section = models.CharField(max_length=20)
+    section = models.CharField(max_length=20,blank=True, null=True)
     situation = models.CharField(choices=SITUATION, default="tenant",max_length=10)
     rooms_count = models.IntegerField()
-    rent_amount = models.CharField(max_length=20)
-    status_description = models.TextField()
+    rent_amount = models.CharField(max_length=20, blank=True, null=True)
+    status_description = models.TextField(blank=True, null=True)
 
     def  __str__(self):
         return self.user.first_name
@@ -71,26 +73,26 @@ class House(models.Model):
 
 class Family(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=CASCADE,null= True)
-    father_name = models.CharField(max_length=20)
-    mother_name = models.CharField(max_length=20)
-    father_birthday  = models.DateTimeField()
-    mother  = models.DateTimeField()
-    father_education = models.CharField(max_length=15)
-    father_education = models.CharField(max_length=15)
-    brothers_count = models.IntegerField()
-    sisters_count = models.IntegerField()
-    supervisor = models.CharField(max_length=20)
+    father_name = models.CharField(max_length=20,blank=True, null=True)
+    mother_name = models.CharField(max_length=20,blank=True, null=True)
+    father_birthday  = models.DateField(default=timezone.now, blank=True, null=True)
+    mother_birthday  = models.DateField(default=timezone.now, blank=True,null=True)
+    father_education = models.CharField(max_length=15,blank=True, null=True)
+    father_education = models.CharField(max_length=15,blank=True, null=True)
+    brothers_count = models.IntegerField(default=0)
+    sisters_count = models.IntegerField(default=0)
+    supervisor = models.CharField(max_length=20,blank=True, null=True)
     father_is_dead = models.BooleanField()
     mother_is_dead = models.BooleanField()
-    father_dead_reason = models.CharField(max_length=15)
-    mother_dead_reason = models.CharField(max_length=15)
+    father_dead_reason = models.CharField(max_length=15,blank=True, null=True)
+    mother_dead_reason = models.CharField(max_length=15,blank=True, null=True)
     father_is_sick_or_defective = models.BooleanField()
     mother_is_sick_or_defective = models.BooleanField()
-    father_defective_type = models.CharField(max_length=20)
-    mother_defective_type = models.CharField(max_length=20)
+    father_defective_type = models.CharField(max_length=20,blank=True, null=True)
+    mother_defective_type = models.CharField(max_length=20,blank=True, null=True)
     another_source_support = models.BooleanField(default=False)
-    source_support = models.CharField(max_length=30, null= True)
-    support_ammount = models.CharField(max_length=20, null= True)
+    source_support = models.CharField(max_length=30,blank=True, null=True)
+    support_ammount = models.CharField(max_length=20,blank=True, null=True)
 
     
 
@@ -101,14 +103,14 @@ class Family(models.Model):
         return reverse("childs:family_details", kwargs={"id": self.pk})
     
 class Requirements(models.Model):
-    user = models.OneToOneField(UserProfile, on_delete=CASCADE,null= True)
+    user = models.OneToOneField(UserProfile, on_delete=CASCADE)
     medical = models.BooleanField()
     educational = models.BooleanField()
     food = models.BooleanField()
     clothing = models.BooleanField()
     family = models.BooleanField()
     other = models.BooleanField()
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     def  __str__(self):
         return self.user.first_name
     
@@ -196,3 +198,14 @@ class Contact(models.Model):
     phone = models.CharField(max_length=20, null=True, blank=True)
     intrest_in = models.CharField(max_length=50, null=True, blank=True)
     message = models.TextField()
+
+class Donation(models.Model):
+    child = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    sponser = models.ForeignKey(Sponser, on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    done = models.BooleanField(default=False)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return 'Donation by ' +self.sponser.user.first_name +  ' for ' + self.child.first_name
+    

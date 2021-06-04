@@ -13,17 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from childfoundation.admin import CustomAdminSite
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from childfoundation.admin import custom_admin_site
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', custom_admin_site.urls),
     path('', include('childs.urls', namespace='childs')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('sponser/', include('sponser.urls', namespace='sponser')),
+    path('helpers/', include('helpers.urls', namespace='helpers')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 if settings.DEBUG:

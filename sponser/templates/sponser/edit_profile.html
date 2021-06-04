@@ -4,12 +4,8 @@
     <div class="section">
         <form action="." method="POST">
             {% csrf_token %}
-          <!-- <div class="input-group">
-              <label>First Name</label>
-              <input class="form-control" name="first_name" value="mojtaba">
-          </div> -->
-          {{form.as_p}}
-          <button class="btn btn-pink">Update Profile</button>
+            {{form.as_p}}
+            <button class="btn btn-pink">Update Profile</button>
         </form>
     </div>
 </div>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="donation-box">
+        <form method="post" action={% url 'childs:donate_child' child.id %} class="card">
+            {% csrf_token %}
+            <h3 class="color-pink text-center">Donation</h3>
+            <div class="form-group">
+                <label>Child Name</label>
+                <input class="form-control" disabled value="{{child.first_name}}">
+            </div>
+            <div class="form-group">
+                <label>Donation Need</label>
+                <input class="form-control" disabled value="{{child.get_donation_needs}}">
+            </div>
+            <div class="form-group">
+                <label>Donation Amount(£/Month)</label>
+                <input class="form-control" name="amount" type="number">
+            </div>
+            <button type="submit" class="btn btn-pink">Submit</button>
+        </form>
+    </div>
+{% endblock content %}

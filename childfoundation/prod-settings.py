@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cron',
     'childs',
     'accounts',
     'sponser',
+    'helpers',
     'rest_framework',
     # 'ckeditor',
     # 'ckeditor_uploader',
@@ -121,7 +123,10 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-
+CRON_CLASSES = [
+    "helpers.cron.DailyCheck",
+    # ...
+]
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 

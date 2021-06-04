@@ -1,42 +1,54 @@
+from childfoundation.admin import custom_admin_site
+from childs.views import manage_admin
 from django.contrib import admin
-from .models import Events, Family, House, News, Office, UserProfile, Requirements
+from django.db import models
+from .models import Donation, Events, Family, House, News, Office, UserProfile, Requirements
+from django.conf.urls import url
 
-@admin.register(News)
+
+
 class NewsAdmin(admin.ModelAdmin):
     list_editable = ('status',)
     list_display = ('title', 'writer', 'publish_date', 'status')
-    list_filter = ('writer', 'status')
+    list_filter = ('status',)
     search_fields = ('title', 'body')
     
     prepopulated_fields = {'slug': ('title',)}
 
-@admin.register(UserProfile)
-class NewsAdmin(admin.ModelAdmin):
+class UserProfileAdmin(admin.ModelAdmin):
     pass
 
-
-@admin.register(Events)
-class NewsAdmin(admin.ModelAdmin):
+class EventsAdmin(admin.ModelAdmin):
     list_editable = ('status',)
     list_display = ('title', 'writer', 'publish_date', 'status')
-    list_filter = ('writer', 'status')
+    list_filter = ('status',)
     search_fields = ('title', 'body')
     
     prepopulated_fields = {'slug': ('title',)}
 
-
-@admin.register(Family)
-class NewsAdmin(admin.ModelAdmin):
+class FamilyAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(House)
-class NewsAdmin(admin.ModelAdmin):
+class HouseAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Requirements)
-class NewsAdmin(admin.ModelAdmin):
+class RequirementsAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Office)
 class OfficeAdmin(admin.ModelAdmin):
     pass
+
+class DonationAdmin(admin.ModelAdmin):
+    list_display = ('child', 'sponser', 'amount', 'date','done')
+    search_fields = ('child', 'sponser')
+    list_filter = ('done',)
+
+
+custom_admin_site.register(News, NewsAdmin)
+custom_admin_site.register(Events, EventsAdmin)
+custom_admin_site.register(UserProfile, UserProfileAdmin)
+custom_admin_site.register(Family, FamilyAdmin)
+custom_admin_site.register(House, HouseAdmin)
+custom_admin_site.register(Requirements, RequirementsAdmin)
+custom_admin_site.register(Office, OfficeAdmin)
+custom_admin_site.register(Donation, DonationAdmin)
