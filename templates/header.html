@@ -24,7 +24,7 @@
         <h3 class="bold">Member Area</h3>
         <div class="desc">
           {% if user.is_authenticated %}
-            <a href="{% url 'sponser:sponser_profile' %}">Profile</a>
+            <a href="{% url 'sponsor:sponsor_profile' %}">Profile</a>
             <span> / </span>
             <a href="{% url 'accounts:user_logout' %}">Logout</a>
             {% else %}
@@ -47,7 +47,7 @@
   <div class="justify-content-around bottom-header mx-auto d-none d-md-flex">
     <div class="menu">
       <a href="{% url 'childs:landing' %}">Home</a>
-      <a href="{% url 'childs:sponser_a_child' %}">Sponser A Child</a>
+      <a href="{% url 'childs:sponsor_a_child' %}">Sponsor A Child</a>
       <a href="{% url 'childs:donate' %}">Donate</a>
       <a href="{% url 'childs:volunteers' %}">Volunteers</a>
       <a href="{% url 'childs:about' %}">About</a>
@@ -65,7 +65,7 @@
 <div id="sidebar">
   <div class="routes">
     <a href="{% url 'childs:landing' %}">Home</a>
-    <a href="{% url 'childs:sponser_a_child' %}">Sponser A Child</a>
+    <a href="{% url 'childs:sponsor_a_child' %}">Sponsor A Child</a>
     <a href="{% url 'childs:donate' %}">Donate</a>
     <a href="{% url 'childs:volunteers' %}">Volunteers</a>
     <a href="{% url 'childs:about' %}">About</a>
@@ -75,6 +75,7 @@
   <hr class="mt-3">
   <div class="d-flex justify-content-center mb-3">
     {% if user.is_authenticated %}
+    <a class="mr-2" href="{% url 'sponsor:sponsor_profile' %}">Profile</a>
     <a href="{% url 'accounts:user_logout' %}">Logout</a>
     {% else %}
     <a href="{% url 'accounts:user_login' %}" class="mr-2">Login</a>

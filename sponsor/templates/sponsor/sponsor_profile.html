@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container content">
+    <div class="section text-center">
+        <h3>{{sponsor.user.username}}</h3>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'sponsor:edit_profile' %}" class="mr-1">Edit Profile</a>
+            <span>|</span>
+            <a href="{% url 'accounts:user_logout' %}" class="ml-1">Logout</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-4 px-0 pr-md-3">
+            <div class="section sponsor_menu">
+                <h3 class="mb-4">Sponsors Menu</h3>
+                <hr>
+                <h5><a href="{% url 'sponsor:edit_profile' %}" >Edit Profile</a></h5>
+                <hr>
+                <h5><a href="{% url 'childs:sponsor_a_child' %}">Add Child</a></h5>
+                <hr>
+                <h5><a href="{% url 'sponsor:sponsored_childs' %}">View Sponsored Childs</a></h5>
+                <hr>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 px-0">
+            <div class="section">
+                <h3 class="mb-4">Sponsor Profile</h3>
+                <hr>
+                <div class="sponsor_detail">
+                    <label class="text-muted">Name</label>
+                    <div>
+                        <strong class="pl-4">{{sponsor.user.first_name}}</strong>
+                        <strong>{{sponsor.user.last_name}}</strong>
+                    </div>
+                </div>
+                <div class="sponsor_detail">
+                    <label class="text-muted">Company</label>
+                    <strong class="pl-4">{{sponsor.company}}</strong>
+                </div>
+                <!-- <div class="sponsor_detail">
+                    <label class="text-muted">Designation</label>
+                    <strong class="pl-4">{{sponsor.designation}}</strong>
+                </div> -->
+                <!-- <div class="sponsor_detail">
+                    <label class="text-muted">Description</label>
+                    <strong class="pl-4">{{sponsor.description}}</strong>
+                </div> -->
+                <div class="sponsor_detail">
+                    <label class="text-muted">Gender</label>
+                    <strong class="pl-4">{{sponsor.gender}}</strong>
+                </div>
+                <div class="sponsor_detail">
+                    <label class="text-muted">Contribution</label>
+                    <strong class="pl-4">{{sponsor.get_contribution}}</strong>
+                </div>
+                <div class="sponsor_detail">
+                    <label class="text-muted">Total Paid</label>                  
+                    {% if sponsor.total_paid and sponsor.total_paid != ''%}
+                    <strong class="pl-4">{{sponsor.total_paid}}£</strong>
+                    {% else %}
+                    <strong class="pl-4">0</strong>              
+                    {% endif %}                        
+                    
+                </div>
+                <div class="sponsor_detail">
+                    <label class="text-muted">Total Saving</label>   
+                    {% if sponsor.current_saving and sponsor.current_saving != '' %}
+                    <strong class="pl-4">{{sponsor.current_saving}}£</strong>
+                    {% else %}
+                    <strong class="pl-4">0</strong>
+                    {% endif %}
+                        
+
+                </div>
+                <div class="sponsor_detail">
+                    <label class="text-muted">Member Since</label>
+                    <strong class="pl-4">{{sponsor.user.date_joined|date:'d M Y'}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

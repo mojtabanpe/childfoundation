@@ -1,8 +1,8 @@
-from sponser.models import Sponser
+from sponsor.models import Sponsor
 from childs.forms import ContactForm
 from childs.seializers import NewsSerializer
 from rest_framework import generics
-from childs.models import Contact, Donation, News, Office, UserProfile
+from childs.models import Contact, Donation, News, Office, Child, SponsoredChild
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 
@@ -33,45 +33,54 @@ def news_details(request, id,slug):
     post = get_object_or_404(News, id= id, slug = slug)
     return render(request, "childs/post_details.html", {'post': post})
 
-def sponser(request):
-    childs = UserProfile.objects.filter(sponser_id=None)
+def sponsor_a_child(request):
+    childs = Child.objects.filter(fully_sponsored=False)
     # print(childs)
     context = {
         'childs': childs
     }
-    return render(request, './childs/sponser.html', context=context)
+    return render(request, './childs/sponsor_a_child.html', context=context)
 
 def child_details(request, id):
     if request.user.is_authenticated:
-        child = get_object_or_404(UserProfile,id=id)
-        sponser = get_object_or_404(Sponser,user_id=request.user.id)
-        child_has_sponser = False
-        sponser_right = False
-        if child.sponser_id:
-            child_has_sponser = True
-        if child.sponser_id == sponser.id:
-            sponser_right = True
-        if child_has_sponser and (not sponser_right):
-            return redirect('sponser:sponsered_childs')
-        donations = Donation.objects.filter(sponser_id=sponser.id, child_id=child.id)
-        context = {
-            'child': child,
-            'donations': donations,
-            'child_has_sponser': child_has_sponser
-        }
+        context = {}
+        child = get_object_or_404(Child,id=id)
+        context['child'] = child
+        context['child_has_sponsor'] = False
+        sponsor = get_object_or_404(Sponsor,user_id=request.user.id)
+        sponsor_right = False
+        if child.has_sponsor():
+            context['child_has_sponsor'] = True
+        child_sponsors = SponsoredChild.objects.filter(child_id=child.id, sponsor_id=sponsor.id)
+        if child_sponsors:
+            context['current_sponsorship'] = child_sponsors[0].amount
+            sponsor_right = True
+            context['sponsor_right'] = True
+            context['date'] = child_sponsors[0].date_created
+        if context['child_has_sponsor'] and (not sponsor_right):
+            return redirect('sponsor:sponsored_childs')
+        
         return render(request, './childs/child_details.html', context=context)
     else:
         return redirect('accounts:user_login')
 
-def become_sponser(request, child_id):
+def become_sponsor(request, child_id, amount):
     if request.user.is_authenticated:
-        child = get_object_or_404(UserProfile,id=child_id)
-        sponser = get_object_or_404(Sponser,user_id=request.user.id)
-        child.sponser_id = sponser.id
-        sponser.contribution += 1
-        sponser.save()
+        if request.method == 'POST':
+            amount = request.POST['amount']
+        child = get_object_or_404(Child,id=child_id)
+        sponsor = get_object_or_404(Sponsor,user_id=request.user.id)
+        data = {
+            'child_id': child.id,
+            'sponsor_id': sponsor.id,
+            'amount': amount
+        }
+        SponsoredChild.objects.create(**data)
+        if child.current_need() == 0:
+            child.fully_sponsored = True
         child.save()
-        return redirect('sponser:sponsered_childs')
+        sponsor.save()
+        return redirect('sponsor:sponsored_childs')
     else:
         return redirect('accounts:user_login')
 
@@ -79,23 +88,23 @@ def donate_child(request, child_id):
     if request.method == 'POST':
         if request.user.is_authenticated:
             donation_amount = request.POST['amount']
-            sponser = Sponser.objects.get(user_id=request.user.id)
+            sponsor = Sponsor.objects.get(user_id=request.user.id)
             dontation = {
                 'child_id': child_id,
-                'sponser_id': sponser.id,
+                'sponsor_id': sponsor.id,
                 'amount': donation_amount
             }
             dontation = Donation.objects.create(**dontation)
             try:
-                sponser.total_paid = str(float(sponser.total_paid) + float(donation_amount))
-                sponser.save()
+                sponsor.total_paid = str(float(sponsor.total_paid) + float(donation_amount))
+                sponsor.save()
             except:
-                sponser.total_paid = str(donation_amount);
-                sponser.save()
-            return redirect('sponser:sponsered_childs')
+                sponsor.total_paid = str(donation_amount);
+                sponsor.save()
+            return redirect('sponsor:sponsored_childs')
     elif request.method == 'GET':
         if request.user.is_authenticated:
-            child = get_object_or_404(UserProfile,id=child_id)
+            child = get_object_or_404(Child,id=child_id)
             context = {
                 'child': child
             }        

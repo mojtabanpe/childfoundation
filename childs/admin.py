@@ -2,7 +2,7 @@ from childfoundation.admin import custom_admin_site
 from childs.views import manage_admin
 from django.contrib import admin
 from django.db import models
-from .models import Donation, Events, Family, House, News, Office, UserProfile, Requirements
+from .models import Donation, Events, Family, House, News, Office, Child, Requirements, SponsoredChild
 from django.conf.urls import url
 
 
@@ -15,7 +15,7 @@ class NewsAdmin(admin.ModelAdmin):
     
     prepopulated_fields = {'slug': ('title',)}
 
-class UserProfileAdmin(admin.ModelAdmin):
+class ChildAdmin(admin.ModelAdmin):
     pass
 
 class EventsAdmin(admin.ModelAdmin):
@@ -39,16 +39,19 @@ class OfficeAdmin(admin.ModelAdmin):
     pass
 
 class DonationAdmin(admin.ModelAdmin):
-    list_display = ('child', 'sponser', 'amount', 'date','done')
-    search_fields = ('child', 'sponser')
-    list_filter = ('done',)
+    list_display = ('amount', 'email', 'date')
+    search_fields = ('email',)
+    list_filter = ('date',)
 
+class SponsoredChildAdmin(admin.ModelAdmin):
+    pass
 
 custom_admin_site.register(News, NewsAdmin)
 custom_admin_site.register(Events, EventsAdmin)
-custom_admin_site.register(UserProfile, UserProfileAdmin)
+custom_admin_site.register(Child, ChildAdmin)
 custom_admin_site.register(Family, FamilyAdmin)
 custom_admin_site.register(House, HouseAdmin)
 custom_admin_site.register(Requirements, RequirementsAdmin)
 custom_admin_site.register(Office, OfficeAdmin)
 custom_admin_site.register(Donation, DonationAdmin)
+custom_admin_site.register(SponsoredChild, SponsoredChildAdmin)

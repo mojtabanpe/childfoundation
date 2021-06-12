@@ -1,6 +1,6 @@
 from datetime import datetime
-from sponser.models import Sponser
-from childs.models import UserProfile
+from sponsor.models import Sponsor
+from childs.models import Child
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail, send_mass_mail

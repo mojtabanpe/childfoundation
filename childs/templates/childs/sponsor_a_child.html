@@ -14,17 +14,17 @@
     {% for child in childs %}
     <div class="child">
         <div class="card">
-            <div class="card-header d-flex justify-content-between">          
-                <!-- <h4>{{child.first_name|upper}}</h4> -->
+            <div class="card-header d-flex justify-content-between align-items-center">          
+                <h6 class="mb-0">{{child.first_name|upper}}</h6>
                 <div>
                     <span class="qoute">{{child.province_birthday|capfirst}},</span>
                     <span class="qoute">{{child.city_birthday|capfirst}}</span>
                 </div>
             </div>
-            <img src="{{child.image}}" class="child-image" alt="">
+            <img src="files/{{child.image}}" class="child-image" alt="">
             <div class="card-body">
-                <div class="d-flex justify-content-around">
-                    <h5 class="mr-1">Donation Needs: {{child.donation_needs}} <i class="fas fa-pound-sign"></i> / Month</h5>
+                <div class="d-flex justify-content-around align-items-center">
+                    <h6 class="mr-1 mb-0">Donation Needs: {{child.get_donation_needs}}</h6>
                     <div>
                         <span>{{child.age}}years</span>
                         <i class="fas fa-calendar"></i>
@@ -35,7 +35,7 @@
                 </p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-pink"><a href="{% url 'childs:child_details' child.id %}">SEE CHILD DETAILS</a></button>
+                <button class="btn btn-pink btn-block"><a href="{% url 'childs:child_details' child.id %}">SEE CHILD DETAILS</a></button>
             </div>
         </div>
     </div>

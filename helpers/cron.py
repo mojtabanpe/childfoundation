@@ -1,8 +1,7 @@
 from django_cron import CronJobBase, Schedule
 from django.conf import settings
 from django.core.mail import send_mail, send_mass_mail
-from childs.models import UserProfile
-from sponser.models import Sponser
+from sponsor.models import Sponsor
 from datetime import datetime 
 from django.core.mail import EmailMultiAlternatives
 
@@ -21,17 +20,17 @@ class DailyCheck(CronJobBase):
 
     def send_email(self, birthdays):
         for birthday in birthdays:
-            sponser = birthday.sponser
+            sponsor = birthday.sponsor
             child = birthday
             birthdaySubject = "Child Birthday"
-            html_content = f"<h3>Hello {sponser.user.first_name}</h3><p>It's Birthday of your child {child.first_name} {child.last_name}</P>" \
+            html_content = f"<h3>Hello {sponsor.user.first_name}</h3><p>It's Birthday of your child {child.first_name} {child.last_name}</P>" \
                         "<p>if you want to donate him please follow this link:</p> <a href='http://localhost:8000'>ChildFoundation</a>"
-            msg = EmailMultiAlternatives(birthdaySubject, '', settings.DEFAULT_FROM_EMAIL, [sponser.user.email,])
+            msg = EmailMultiAlternatives(birthdaySubject, '', settings.DEFAULT_FROM_EMAIL, [sponsor.user.email,])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
 
     def check_birthday(self):
-        childs = UserProfile.objects.all()
+        childs = Child.objects.all()
         birthdays = []
         now = datetime.now()
         for child in childs:
@@ -44,14 +43,14 @@ class DailyCheck(CronJobBase):
         if now.month + 2 == 9 and now.day == 23:
             subject = 'ٔNew Academic year'
             message = ''        
-            for sponser in Sponser.objects.all():
-                html_content = f"<h2>Hello {sponser.user.first_name}</h2><h3>It's New Academic Year</h3>" \
+            for sponsor in Sponsor.objects.all():
+                html_content = f"<h2>Hello {sponsor.user.first_name}</h2><h3>It's New Academic Year</h3>" \
                         "<p>if you want to donate your child please follow this link:</p> <a href='http://localhost:8000'>ChildFoundation</a>"
                 send_mail(
                     subject=subject,
                     message=message,
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[sponser.user.email,],
+                    recipient_list=[sponsor.user.email,],
                     fail_silently=False,
                     html_message=html_content
                     )
@@ -59,14 +58,14 @@ class DailyCheck(CronJobBase):
         elif now.month + 2 == 3 and now.day == 20:
             subject = 'ٔNowruz'
             message = ''        
-            for sponser in Sponser.objects.all():
-                html_content = f"<h2>Hello {sponser.user.first_name}</h2><h3>It's New Year Celebration</h3>" \
+            for sponsor in Sponsor.objects.all():
+                html_content = f"<h2>Hello {sponsor.user.first_name}</h2><h3>It's New Year Celebration</h3>" \
                         "<p>if you want to donate your child please follow this link:</p> <a href='http://localhost:8000'>ChildFoundation</a>"
                 send_mail(
                     subject=subject,
                     message=message,
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[sponser.user.email,],
+                    recipient_list=[sponsor.user.email,],
                     fail_silently=False,
                     html_message=html_content
                     )

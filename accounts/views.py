@@ -1,4 +1,4 @@
-from sponser.models import Sponser
+from sponsor.models import Sponsor
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .forms import LoginForm, RegisterForm
@@ -17,7 +17,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "you logged in successfully", 'success')
-                return redirect('sponser:sponser_profile')
+                return redirect('sponsor:sponsor_profile')
             else:
                 messages.error(request, "username or password is wrong", 'danger')
 
@@ -36,8 +36,8 @@ def user_register(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = User.objects.create_user(username, email, password)
-            sponser = Sponser(user=user)
-            sponser.save()
+            sponsor = Sponsor(user=user)
+            sponsor.save()
             messages.success(request, 'user created, you can log in now!', 'success')
             return redirect('accounts:user_login')
                 

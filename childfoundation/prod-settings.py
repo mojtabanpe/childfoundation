@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django_cron',
     'childs',
     'accounts',
-    'sponser',
+    'sponsor',
     'helpers',
     'rest_framework',
+    'mathfilters'
     # 'ckeditor',
     # 'ckeditor_uploader',
 ]

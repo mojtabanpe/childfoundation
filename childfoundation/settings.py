@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django_cron',
     'childs',
     'accounts',
-    'sponser',
+    'sponsor',
     'helpers',
     'rest_framework',
+    'mathfilters'
     
     # 'ckeditor',
     # 'ckeditor_uploader',
@@ -100,7 +101,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 

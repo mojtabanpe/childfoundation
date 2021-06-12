@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', custom_admin_site.urls),
     path('', include('childs.urls', namespace='childs')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('sponser/', include('sponser.urls', namespace='sponser')),
+    path('sponsor/', include('sponsor.urls', namespace='sponsor')),
     path('helpers/', include('helpers.urls', namespace='helpers')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]

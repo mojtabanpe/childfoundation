@@ -1,4 +1,5 @@
-from sponser.models import Sponser
+
+from sponsor.models import Sponsor
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
@@ -13,13 +14,13 @@ class PublishedPostsManager(models.Manager):
         return super().get_queryset().filter(status = "publish")
 
 
+
 # models
-class UserProfile(models.Model):
+class Child(models.Model):
     HEALTH_STATE = (
         ("healthy","Healthy"),
         ("sick","Sick")
     )
-    sponser = models.ForeignKey(Sponser, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=30, default='')
     last_name = models.CharField(max_length=30, default='')
     membership_number = models.IntegerField(null=False, blank=False, unique=True)
@@ -28,17 +29,19 @@ class UserProfile(models.Model):
     is_clever = models.BooleanField()
     is_rejected = models.BooleanField()
     is_poor = models.BooleanField()
-    image = models.ImageField(upload_to="files/images")
+    image = models.ImageField(upload_to="images")
     age = models.IntegerField()
     birthday = models.DateField()
     province_birthday = models.CharField(max_length=20)
     city_birthday = models.CharField(max_length=20)
     educational_class = models.CharField(max_length=10)
     last_year_score = models.FloatField()
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     health_state = models.CharField(choices=HEALTH_STATE, default="healthy",max_length=10)
-    sickness_description = models.TextField()
-    donation_needs = models.CharField(max_length=20,blank=True, null=True)
+    sickness_description = models.TextField(blank=True, null=True)
+    donation_needs = models.IntegerField()
+    fully_sponsored = models.BooleanField(default=False)
+
 
     def  __str__(self):
         return self.first_name
@@ -47,11 +50,34 @@ class UserProfile(models.Model):
         return reverse("childs:child_details", kwargs={"id": self.pk})
     
     def get_donation_needs(self):
-        return self.donation_needs + '£' + ' / Month'
-
+        return str(self.current_need()) + '£' + ' / Month'
+    
+    def has_sponsor(self):
+        child_sponsors = SponsoredChild.objects.filter(child_id=self.pk)
+        if not child_sponsors:
+            return False
+        else:
+            return True
+        
+    # def fully_sponsored(self):
+    #     child_sponsors = SponsoredChild.objects.filter(childs_id=self.pk)
+    #     amount = 0
+    #     for item in child_sponsors:
+    #         amount += item.amount
+    #     if amount == self.donation_needs:
+    #         return True
+    #     else:
+    #         return False
+    
+    def current_need(self):
+        child_sponsors = SponsoredChild.objects.filter(child_id=self.pk)
+        amount = self.donation_needs
+        for item in child_sponsors:
+            amount -= item.amount
+        return amount
 
 class House(models.Model):
-    user = models.OneToOneField(UserProfile, on_delete=CASCADE,null= True)
+    user = models.OneToOneField(Child, on_delete=CASCADE,null= True)
     SITUATION = (
         ("owner","Owner"),
         ("tenant","Tenant")
@@ -70,9 +96,8 @@ class House(models.Model):
     def get_absolute_url(self):
         return reverse("childs:house_details", kwargs={"id": self.pk})
     
-
 class Family(models.Model):
-    user = models.OneToOneField(UserProfile, on_delete=CASCADE,null= True)
+    user = models.OneToOneField(Child, on_delete=CASCADE,null= True)
     father_name = models.CharField(max_length=20,blank=True, null=True)
     mother_name = models.CharField(max_length=20,blank=True, null=True)
     father_birthday  = models.DateField(default=timezone.now, blank=True, null=True)
@@ -103,7 +128,7 @@ class Family(models.Model):
         return reverse("childs:family_details", kwargs={"id": self.pk})
     
 class Requirements(models.Model):
-    user = models.OneToOneField(UserProfile, on_delete=CASCADE)
+    user = models.OneToOneField(Child, on_delete=CASCADE)
     medical = models.BooleanField()
     educational = models.BooleanField()
     food = models.BooleanField()
@@ -117,7 +142,6 @@ class Requirements(models.Model):
     def get_absolute_url(self):
         return reverse("childs:family_details", kwargs={"id": self.pk})
     
-
 class News(models.Model):
     STATUS = (
         ("draft","Draft"),
@@ -200,12 +224,22 @@ class Contact(models.Model):
     message = models.TextField()
 
 class Donation(models.Model):
-    child = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    sponser = models.ForeignKey(Sponser, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30, default='')
     amount = models.IntegerField()
-    done = models.BooleanField(default=False)
+    email = models.EmailField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'Donation by ' +self.sponser.user.first_name +  ' for ' + self.child.first_name
+        return 'Donation by ' +self.name
     
+class SponsoredChild(models.Model):
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, null=True)
+    sponsor = models.ForeignKey(Sponsor, on_delete=models.CASCADE, null=True)
+    amount = models.IntegerField()
+    date_created = models.DateField(auto_now=True)
+
+    class Meta:
+        unique_together = ('child', 'sponsor',)
+
+    def __str__(self):
+        return self.sponsor.user.username

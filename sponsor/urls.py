@@ -3,11 +3,11 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-app_name = 'sponser'
+app_name = 'sponsor'
 urlpatterns = [
-    path('sponser_profile/', views.sponser_profile, name='sponser_profile'),
+    path('sponsor_profile/', views.sponsor_profile, name='sponsor_profile'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
-    path('sponsered_childs', views.sponsered_childs, name='sponsered_childs'),
+    path('sponsored_childs', views.sponsored_childs, name='sponsored_childs'),
 
 ]
 
