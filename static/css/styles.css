@@ -66,7 +66,7 @@ a {
   }
   a:hover {
       text-decoration: none !important;
-      color: white;
+      color: #21385f;
   }
 
   .content-go-bot {
@@ -278,7 +278,7 @@ a {
 
 .routes a:hover {
     background-color: #26f55d;
-    color: white;
+    color: white !important;
 }
 #close-sidebar {
     position: absolute;
@@ -292,7 +292,7 @@ a {
     cursor: pointer;
 }
 #sidebar .d-flex a:hover {
-    color:gray;
+    color:gray !important;
     text-decoration: none;
     
 }
