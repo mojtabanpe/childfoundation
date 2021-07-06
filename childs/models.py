@@ -23,7 +23,7 @@ class Child(models.Model):
     )
     first_name = models.CharField(max_length=30, default='')
     last_name = models.CharField(max_length=30, default='')
-    membership_number = models.IntegerField(null=False, blank=False, unique=True)
+    membership_identifier = models.CharField(null=False, blank=False,unique=True, max_length=25)
     file_number = models.IntegerField(null=False, blank=False, unique=True)
     is_orphan = models.BooleanField()
     is_clever = models.BooleanField()
@@ -35,7 +35,8 @@ class Child(models.Model):
     province_birthday = models.CharField(max_length=20)
     city_birthday = models.CharField(max_length=20)
     educational_class = models.CharField(max_length=10)
-    last_year_score = models.FloatField()
+    last_year_score = models.CharField(max_length=20)
+    summary = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     health_state = models.CharField(choices=HEALTH_STATE, default="healthy",max_length=10)
     sickness_description = models.TextField(blank=True, null=True)
@@ -77,7 +78,7 @@ class Child(models.Model):
         return amount
 
 class House(models.Model):
-    user = models.OneToOneField(Child, on_delete=CASCADE,null= True)
+    child = models.OneToOneField(Child, on_delete=CASCADE,null= True)
     SITUATION = (
         ("owner","Owner"),
         ("tenant","Tenant")
@@ -91,19 +92,19 @@ class House(models.Model):
     status_description = models.TextField(blank=True, null=True)
 
     def  __str__(self):
-        return self.user.first_name
+        return self.child.first_name
     
     def get_absolute_url(self):
         return reverse("childs:house_details", kwargs={"id": self.pk})
     
 class Family(models.Model):
-    user = models.OneToOneField(Child, on_delete=CASCADE,null= True)
+    child = models.OneToOneField(Child, on_delete=CASCADE,null= True)
     father_name = models.CharField(max_length=20,blank=True, null=True)
     mother_name = models.CharField(max_length=20,blank=True, null=True)
     father_birthday  = models.DateField(default=timezone.now, blank=True, null=True)
     mother_birthday  = models.DateField(default=timezone.now, blank=True,null=True)
     father_education = models.CharField(max_length=15,blank=True, null=True)
-    father_education = models.CharField(max_length=15,blank=True, null=True)
+    mother_education = models.CharField(max_length=15,blank=True, null=True)
     brothers_count = models.IntegerField(default=0)
     sisters_count = models.IntegerField(default=0)
     supervisor = models.CharField(max_length=20,blank=True, null=True)
@@ -115,6 +116,12 @@ class Family(models.Model):
     mother_is_sick_or_defective = models.BooleanField()
     father_defective_type = models.CharField(max_length=20,blank=True, null=True)
     mother_defective_type = models.CharField(max_length=20,blank=True, null=True)
+    father_is_employed = models.BooleanField(default=False)
+    father_job = models.CharField(max_length=20, default='', blank=True, null=True)
+    father_income = models.IntegerField(default=0)
+    mother_is_employed = models.BooleanField(default=False)
+    mother_job = models.CharField(max_length=20, default='', blank=True, null=True)
+    mother_income = models.IntegerField(default=0)
     another_source_support = models.BooleanField(default=False)
     source_support = models.CharField(max_length=30,blank=True, null=True)
     support_ammount = models.CharField(max_length=20,blank=True, null=True)
@@ -122,13 +129,13 @@ class Family(models.Model):
     
 
     def  __str__(self):
-        return self.user.first_name
+        return self.child.first_name
     
     def get_absolute_url(self):
         return reverse("childs:family_details", kwargs={"id": self.pk})
     
 class Requirements(models.Model):
-    user = models.OneToOneField(Child, on_delete=CASCADE)
+    child = models.OneToOneField(Child, on_delete=CASCADE)
     medical = models.BooleanField()
     educational = models.BooleanField()
     food = models.BooleanField()
@@ -137,7 +144,7 @@ class Requirements(models.Model):
     other = models.BooleanField()
     description = models.TextField(blank=True, null=True)
     def  __str__(self):
-        return self.user.first_name
+        return self.child.first_name
     
     def get_absolute_url(self):
         return reverse("childs:family_details", kwargs={"id": self.pk})

@@ -2,7 +2,7 @@ from sponsor.models import Sponsor
 from childs.forms import ContactForm
 from childs.seializers import NewsSerializer
 from rest_framework import generics
-from childs.models import Contact, Donation, News, Office, Child, SponsoredChild
+from childs.models import Contact, Donation, News, Office, Child, Requirements, SponsoredChild
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 
@@ -45,7 +45,9 @@ def child_details(request, id):
     if request.user.is_authenticated:
         context = {}
         child = get_object_or_404(Child,id=id)
+        requirements = get_object_or_404(Requirements, child_id=child.id)
         context['child'] = child
+        context['requirements'] = requirements
         context['child_has_sponsor'] = False
         sponsor = get_object_or_404(Sponsor,user_id=request.user.id)
         sponsor_right = False
